@@ -42,7 +42,8 @@ module OpenAI
     def self.get(path:)
       HTTParty.get(
         uri(path: path),
-        headers: headers
+        headers: headers,
+        timeout: 120
       )
     end
 
@@ -50,7 +51,8 @@ module OpenAI
       HTTParty.post(
         uri(path: path),
         headers: headers,
-        body: parameters&.to_json
+        body: parameters&.to_json,
+        timeout: 120
       )
     end
 
@@ -58,14 +60,16 @@ module OpenAI
       HTTParty.post(
         uri(path: path),
         headers: headers.merge({ "Content-Type" => "multipart/form-data" }),
-        body: parameters
+        body: parameters,
+        timeout: 120
       )
     end
 
     def self.delete(path:)
       HTTParty.delete(
         uri(path: path),
-        headers: headers
+        headers: headers,
+        timeout: 120
       )
     end
 
@@ -77,7 +81,7 @@ module OpenAI
       {
         "Content-Type" => "application/json",
         "Authorization" => "Bearer #{Ruby::OpenAI.configuration.access_token}",
-        "OpenAI-Organization" => Ruby::OpenAI.configuration.organization_id
+        "OpenAI-Organization" => Ruby::OpenAI.configuration.organization_id,
       }
     end
   end
